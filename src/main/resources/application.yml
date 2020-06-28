@@ -1,0 +1,52 @@
+app:
+  nomeArquivo: 'ITAUICONTA_07062020.csv'
+  diretorioArquivo: '/home/thiago/develop/thiago/gerencia-conta-pagar/importacao/'
+  email:
+    from: monitora.olx@gmail.com
+spring:
+  mail:
+    host: smtp.gmail.com
+    password: MonitoraOLX5987
+    port: 587
+    username: ${app.email.from}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          connectiontimeout: 5000
+          starttls:
+            enable: true
+          timeout: 5000
+          writetimeout: 5000
+  datasource:
+    url: jdbc:postgresql://localhost/db_gerenciar_conta
+    username: tcb
+    password: tcb
+    driverClassName: org.postgresql.Driver
+  jpa:
+    showSql: false
+    hibernate:
+      ddlAuto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+# logging
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %clr(${LOG_LEVEL_PATTERN:%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} %clr(${LOG_LEVEL_PATTERN:%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}"
+  level:
+    root: INFO
+    br:
+      com:
+        intelector:
+          gerenciarcontapagar: DEBUG
+    org:
+      hibernate:
+        type: INFO
