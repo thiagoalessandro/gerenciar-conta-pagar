@@ -1,6 +1,6 @@
 app:
-  nomeArquivo: 'ITAUICONTA_07062020.csv'
-  diretorioArquivo: '/home/thiago/develop/thiago/gerencia-conta-pagar/importacao/'
+  nomeArquivo: 'ITAUICONTA_07072020.csv'
+  diretorioArquivo: '/home/thiagoalessandro/develop/thiago/gerencia-conta-pagar/importacao/'
   email:
     from: monitora.olx@gmail.com
 spring:

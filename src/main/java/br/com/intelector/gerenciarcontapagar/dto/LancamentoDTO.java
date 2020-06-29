@@ -5,10 +5,12 @@ import br.com.intelector.gerenciarcontapagar.utils.LancamentoUtils;
 import com.opencsv.bean.CsvBindByName;
 import lombok.Data;
 import lombok.ToString;
+import lombok.extern.log4j.Log4j2;
 
 import java.text.ParseException;
 import java.util.Date;
 
+@Log4j2
 @Data
 @ToString
 public class LancamentoDTO {
@@ -34,7 +36,7 @@ public class LancamentoDTO {
     }
 
     public Date getDataCompra() throws ArquivoException, ParseException {
-        return LancamentoUtils.getDataCompra(this.getData(), Integer.parseInt(getParcela()[1]));
+        return LancamentoUtils.getDataCompra(this.getData(), Integer.parseInt(getParcela()[0]));
     }
 
     public String getDescricao(){

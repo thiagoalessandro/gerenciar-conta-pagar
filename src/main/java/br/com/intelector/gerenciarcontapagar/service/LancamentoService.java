@@ -7,12 +7,17 @@ import br.com.intelector.gerenciarcontapagar.model.ContaRecorrente;
 import br.com.intelector.gerenciarcontapagar.model.Lancamento;
 import br.com.intelector.gerenciarcontapagar.model.Lembrete;
 import br.com.intelector.gerenciarcontapagar.repository.LancamentoRepository;
+import br.com.intelector.gerenciarcontapagar.utils.LancamentoUtils;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -157,6 +162,30 @@ public class LancamentoService {
         repository.save(lancamento);
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void reconstruirHashAndDataCompra(){
+        this.findAll().forEach(lancamento -> {
+            LancamentoDTO lancamentoDTO = new LancamentoDTO();
+            lancamentoDTO.setData(new SimpleDateFormat("dd/MM").format(lancamento.getDataCompra()));
+            lancamentoDTO.setMovimentacao(lancamento.getDescricao() +
+                    " " +
+                    StringUtils.leftPad(lancamento.getQtdParcelaAtual().toString(), 2, "0") +
+                    "/" +
+                    StringUtils.leftPad(lancamento.getQtdParcela().toString(), 2, "0"));
+            lancamentoDTO.setValor(lancamento.getValor().toString());
+            lancamentoDTO.setCartao(lancamento.getCartao().name());
+            try {
+                lancamento.setDataCompra(lancamentoDTO.getDataCompra());
+                lancamento.setHash(LancamentoUtils.gerarHashLancamento(lancamentoDTO));
+                repository.save(lancamento);
+            } catch (ArquivoException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
     public List<Lancamento> findBySituacaoLancamentoAndCartao(DominioSituacaoLancamento dominioSituacaoLancamento, DominioCartao dominioCartao) {
         return repository.findBySituacaoLancamentoAndCartao(dominioSituacaoLancamento, dominioCartao);
     }
@@ -167,6 +196,10 @@ public class LancamentoService {
 
     public boolean existsByHash(String hash) {
         return repository.existsByHash(hash);
+    }
+
+    public List<Lancamento> findAll(){
+        return repository.findAll();
     }
 
 }
