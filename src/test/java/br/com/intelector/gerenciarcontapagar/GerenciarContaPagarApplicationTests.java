@@ -1,6 +1,7 @@
 package br.com.intelector.gerenciarcontapagar;
 
 import br.com.intelector.gerenciarcontapagar.service.ArquivoService;
+import br.com.intelector.gerenciarcontapagar.service.GastoService;
 import br.com.intelector.gerenciarcontapagar.service.LancamentoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ class GerenciarContaPagarApplicationTests {
     @Autowired
     private LancamentoService lancamentoService;
 
+    @Autowired
+    private GastoService gastoService;
+
     @Test
     void importarArquivo() {
         try {
@@ -32,6 +36,16 @@ class GerenciarContaPagarApplicationTests {
             lancamentoService.reconstruirHashAndDataCompra();
         } catch (Exception e) {
             fail("Erro ao reconstruir hash e data de compra", e);
+        }
+    }
+
+    @Test
+    void consolidarGastoByLancamento() {
+        final String periodo = "2020-08";
+        try {
+            gastoService.consolidarGastoByLancamento(periodo);
+        } catch (Exception e) {
+            fail("Ocorreu um erro ao consolidar gastos por lançamentos", e);
         }
     }
 

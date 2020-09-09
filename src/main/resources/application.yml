@@ -1,5 +1,5 @@
 app:
-  nomeArquivo: 'ITAUICONTA_07072020.csv'
+  nomeArquivo: 'ITAUICONTA_07092020.csv'
   diretorioArquivo: '/home/thiagoalessandro/develop/thiago/gerencia-conta-pagar/importacao/'
   email:
     from: monitora.olx@gmail.com
@@ -24,7 +24,7 @@ spring:
     password: tcb
     driverClassName: org.postgresql.Driver
   jpa:
-    showSql: false
+    showSql: true
     hibernate:
       ddlAuto: none
     properties:
@@ -50,3 +50,6 @@ logging:
     org:
       hibernate:
         type: INFO
+server:
+  servlet:
+    context-path: /contaspagar

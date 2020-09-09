@@ -1,6 +1,6 @@
 package br.com.intelector.gerenciarcontapagar.service;
 
-import br.com.intelector.gerenciarcontapagar.configuration.ApplicationProperties;
+import br.com.intelector.gerenciarcontapagar.config.ApplicationProperties;
 import br.com.intelector.gerenciarcontapagar.domain.DominioCartao;
 import br.com.intelector.gerenciarcontapagar.dto.LancamentoDTO;
 import br.com.intelector.gerenciarcontapagar.exception.ArquivoException;

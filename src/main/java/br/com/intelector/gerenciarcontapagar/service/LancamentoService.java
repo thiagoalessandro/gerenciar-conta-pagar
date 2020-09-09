@@ -7,6 +7,7 @@ import br.com.intelector.gerenciarcontapagar.model.ContaRecorrente;
 import br.com.intelector.gerenciarcontapagar.model.Lancamento;
 import br.com.intelector.gerenciarcontapagar.model.Lembrete;
 import br.com.intelector.gerenciarcontapagar.repository.LancamentoRepository;
+import br.com.intelector.gerenciarcontapagar.repository.dto.LancamentoConsolidadoDTO;
 import br.com.intelector.gerenciarcontapagar.utils.LancamentoUtils;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
@@ -23,9 +24,7 @@ import java.util.Optional;
 
 @Log4j2
 @Service
-public class LancamentoService {
-
-    private final String USUARIO = "BOT";
+public class LancamentoService extends AbstractService{
 
     @Autowired
     private LancamentoRepository repository;
@@ -142,7 +141,6 @@ public class LancamentoService {
         }else{
             lembrete = lembreteService.procurarLembrete(lancamento.getDataCompra(), lancamento.getValor());
             if(lembrete.isPresent()){
-                lancamento.setCategoria(lembrete.get().getCategoria());
                 responsavel = lembrete.get().getResponsavel();
                 observacao = lembrete.get().getObservacao();
             }
@@ -156,7 +154,7 @@ public class LancamentoService {
 
         lancamento.setCartao(cartao);
         lancamento.setTipoLancamento(lancamentoDTO.getValor().contains("-") ? DominioTipoLancamento.CREDITO : DominioTipoLancamento.DEBITO);
-        lancamento.setCdUsuAtu(USUARIO);
+        lancamento.setCdUsuAtu(USUARIO_ATUALIZACAO);
 
         log.debug(lancamento.toString());
         repository.save(lancamento);
@@ -184,6 +182,14 @@ public class LancamentoService {
                 e.printStackTrace();
             }
         });
+    }
+
+    public List<LancamentoConsolidadoDTO> lancamentoConsolidadoAtual() {
+        return repository.lancamentoConsolidadoAtual();
+    }
+
+    public List<LancamentoConsolidadoDTO> lancamentoConsolidadoFuturo() {
+        return repository.lancamentoConsolidadoFuturo();
     }
 
     public List<Lancamento> findBySituacaoLancamentoAndCartao(DominioSituacaoLancamento dominioSituacaoLancamento, DominioCartao dominioCartao) {

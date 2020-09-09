@@ -32,8 +32,4 @@ public class Lembrete extends AbstractEntity {
     @Column(name = "responsavel")
     private DominioResponsavel responsavel;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "categoria")
-    private DominioCategoriaLancamento categoria;
-
 }

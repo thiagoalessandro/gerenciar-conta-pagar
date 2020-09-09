@@ -31,6 +31,7 @@ create table tbl_conta_recorrente
     descricao   varchar(100),
     valor       numeric(18, 2),
     categoria   varchar(50) not null,
+    cartao        varchar(50),
     responsavel varchar(50),
     observacao  varchar(255),
     cd_usu_atu  varchar(25),

@@ -5,6 +5,7 @@ public enum DominioResponsavel {
 	INDEFINIDO("INDEFINIDO"),
 	THIAGO("THIAGO"),
 	BRENDA("BRENDA"),
+	SOCORRO("SOCORRO"),
 	COMPARTILHADO("COMPARTILHADO");
 
 	private String description;

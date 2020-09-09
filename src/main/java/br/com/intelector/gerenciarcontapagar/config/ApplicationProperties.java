@@ -1,4 +1,4 @@
-package br.com.intelector.gerenciarcontapagar.configuration;
+package br.com.intelector.gerenciarcontapagar.config;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;

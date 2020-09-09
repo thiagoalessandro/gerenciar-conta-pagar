@@ -1,6 +1,6 @@
 package br.com.intelector.gerenciarcontapagar.service.mail;
 
-import br.com.intelector.gerenciarcontapagar.configuration.ApplicationProperties;
+import br.com.intelector.gerenciarcontapagar.config.ApplicationProperties;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
