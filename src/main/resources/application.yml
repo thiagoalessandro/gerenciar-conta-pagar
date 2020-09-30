@@ -3,10 +3,12 @@ app:
   diretorioArquivo: '/home/thiagoalessandro/develop/thiago/gerencia-conta-pagar/importacao/'
   email:
     from: monitora.olx@gmail.com
+  log:
+    level: ${LOG_LEVEL}
 spring:
   mail:
-    host: smtp.gmail.com
-    password: MonitoraOLX5987
+    host: xxxx
+    password: xxxx
     port: 587
     username: ${app.email.from}
     properties:
@@ -19,12 +21,12 @@ spring:
           timeout: 5000
           writetimeout: 5000
   datasource:
-    url: jdbc:postgresql://localhost/db_gerenciar_conta
-    username: tcb
-    password: tcb
+    url: jdbc:postgresql://${DATABASE_HOST}/${DATABASE_NAME}
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
     driverClassName: org.postgresql.Driver
   jpa:
-    showSql: true
+    showSql: ${SHOW_SQL}
     hibernate:
       ddlAuto: none
     properties:
@@ -42,14 +44,14 @@ logging:
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %clr(${LOG_LEVEL_PATTERN:%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}"
     file: "%d{yyyy-MM-dd HH:mm:ss.SSS} %clr(${LOG_LEVEL_PATTERN:%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}"
   level:
-    root: INFO
+    root: ${app.log.level}
     br:
       com:
         intelector:
-          gerenciarcontapagar: DEBUG
+          gerenciarcontapagar: ${app.log.level}
     org:
       hibernate:
-        type: INFO
+        type: ${app.log.level}
 server:
   servlet:
     context-path: /contaspagar
