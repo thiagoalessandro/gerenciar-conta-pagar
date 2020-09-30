@@ -40,12 +40,12 @@ class GerenciarContaPagarApplicationTests {
     }
 
     @Test
-    void consolidarGastoByLancamento() {
+    void consolidarGasto() {
         final String periodo = "2020-08";
         try {
-            gastoService.consolidarGastoByLancamento(periodo);
+            gastoService.consolidarGasto(periodo);
         } catch (Exception e) {
-            fail("Ocorreu um erro ao consolidar gastos por lançamentos", e);
+            fail("Ocorreu um erro ao consolidar gastos", e);
         }
     }
 

@@ -1,6 +1,5 @@
 package br.com.intelector.gerenciarcontapagar.model;
 
-import br.com.intelector.gerenciarcontapagar.domain.DominioCategoriaLancamento;
 import br.com.intelector.gerenciarcontapagar.domain.DominioResponsavel;
 import lombok.Data;
 
@@ -10,26 +9,16 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "tbl_lembrete")
-public class Lembrete extends AbstractEntity {
+@Table(name = "tbl_receita")
+public class Receita extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "observacao")
-    private String observacao;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "dt_compra")
-    private Date dataCompra;
-
     @Column(name = "valor", precision = 18, scale = 2)
     private BigDecimal valor;
-
-    @Column(name = "processado")
-    private Boolean processado;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "responsavel")

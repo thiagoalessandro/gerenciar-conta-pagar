@@ -133,16 +133,17 @@ public class LancamentoService extends AbstractService{
         lancamento.setSituacaoLancamento(DominioSituacaoLancamento.PENDENTE);
         lancamento.setValor(new BigDecimal(lancamentoDTO.getValor()));
 
-        contaRecorrente = contaRecorrenteService.procurarContaRecorrente(lancamento.getDescricao());
+        contaRecorrente = contaRecorrenteService.searchContaRecorrente(lancamento.getDescricao());
         if (contaRecorrente.isPresent()) {
-            lancamento.setCategoria(contaRecorrente.get().getCategoria());
+            lancamento.setCategoria(DominioCategoriaLancamento.ASSINATURA);
             responsavel = contaRecorrente.get().getResponsavel();
             observacao = contaRecorrente.get().getObservacao();
         }else{
-            lembrete = lembreteService.procurarLembrete(lancamento.getDataCompra(), lancamento.getValor());
+            lembrete = lembreteService.searchLembrete(lancamento.getDataCompra(), lancamento.getValor(), false);
             if(lembrete.isPresent()){
                 responsavel = lembrete.get().getResponsavel();
                 observacao = lembrete.get().getObservacao();
+                lembreteService.updateProcessado(lembrete.get());
             }
         }
 

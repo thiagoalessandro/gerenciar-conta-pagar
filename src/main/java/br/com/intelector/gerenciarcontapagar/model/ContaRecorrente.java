@@ -1,5 +1,6 @@
 package br.com.intelector.gerenciarcontapagar.model;
 
+import br.com.intelector.gerenciarcontapagar.domain.DominioCategoriaContaRecorrente;
 import br.com.intelector.gerenciarcontapagar.domain.DominioCategoriaLancamento;
 import br.com.intelector.gerenciarcontapagar.domain.DominioResponsavel;
 import lombok.Data;
@@ -32,6 +33,6 @@ public class ContaRecorrente extends AbstractEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "categoria")
-    private DominioCategoriaLancamento categoria;
+    private DominioCategoriaContaRecorrente categoria;
 
 }
