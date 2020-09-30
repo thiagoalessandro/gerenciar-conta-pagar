@@ -22,8 +22,7 @@ class GerenciarContaPagarApplicationTests {
     @Autowired
     private GastoService gastoService;
 
-    @Ignore
-    @Test
+    //@Test
     void importarArquivo() {
         try {
             arquivoService.processarArquivo();
@@ -32,8 +31,7 @@ class GerenciarContaPagarApplicationTests {
         }
     }
 
-    @Ignore
-    @Test
+    //@Test
     void reconstruirHashAndDataCompra() {
         try {
             lancamentoService.reconstruirHashAndDataCompra();
@@ -42,8 +40,8 @@ class GerenciarContaPagarApplicationTests {
         }
     }
 
-    @Ignore
-    @Test
+    //@Ignore
+    //@Test
     void consolidarGasto() {
         final String periodo = "2020-08";
         try {
