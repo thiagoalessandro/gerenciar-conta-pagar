@@ -3,6 +3,7 @@ package br.com.intelector.gerenciarcontapagar;
 import br.com.intelector.gerenciarcontapagar.service.ArquivoService;
 import br.com.intelector.gerenciarcontapagar.service.GastoService;
 import br.com.intelector.gerenciarcontapagar.service.LancamentoService;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,6 +22,7 @@ class GerenciarContaPagarApplicationTests {
     @Autowired
     private GastoService gastoService;
 
+    @Ignore
     @Test
     void importarArquivo() {
         try {
@@ -30,6 +32,7 @@ class GerenciarContaPagarApplicationTests {
         }
     }
 
+    @Ignore
     @Test
     void reconstruirHashAndDataCompra() {
         try {
@@ -39,6 +42,7 @@ class GerenciarContaPagarApplicationTests {
         }
     }
 
+    @Ignore
     @Test
     void consolidarGasto() {
         final String periodo = "2020-08";
