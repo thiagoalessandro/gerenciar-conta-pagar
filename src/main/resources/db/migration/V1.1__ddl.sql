@@ -73,7 +73,6 @@ create table tbl_lembrete
             primary key,
     observacao  varchar(255),
     valor       numeric(18, 2),
-    categoria   varchar(50) not null,
     dt_compra   date,
     responsavel varchar(50),
     processado  char(1) default 'N',

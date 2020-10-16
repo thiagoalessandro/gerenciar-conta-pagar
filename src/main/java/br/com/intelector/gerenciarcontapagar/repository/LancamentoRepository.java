@@ -3,9 +3,14 @@ package br.com.intelector.gerenciarcontapagar.repository;
 import br.com.intelector.gerenciarcontapagar.domain.DominioResponsavel;
 import br.com.intelector.gerenciarcontapagar.domain.DominioSituacaoLancamento;
 import br.com.intelector.gerenciarcontapagar.domain.DominioCartao;
+import br.com.intelector.gerenciarcontapagar.domain.DominioSituacaoRegistro;
 import br.com.intelector.gerenciarcontapagar.model.Lancamento;
+import br.com.intelector.gerenciarcontapagar.model.Lembrete;
 import br.com.intelector.gerenciarcontapagar.repository.dto.LancamentoConsolidadoDTO;
 import br.com.intelector.gerenciarcontapagar.utils.ModelMapperUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -57,4 +62,9 @@ public interface LancamentoRepository extends JpaRepository<Lancamento, Long> {
     List<LancamentoConsolidadoDTO> lancamentoConsolidadoFuturo();
 
 
+    @Query("SELECT l FROM Lancamento l " +
+            "WHERE l.situacao = :situacao " +
+            "AND (:search is null or LOWER(l.descricao) LIKE %:search%) " +
+            "ORDER BY l.dataCompra DESC ")
+    Page<Lancamento> search(String search, DominioSituacaoRegistro situacao, Pageable pageable);
 }

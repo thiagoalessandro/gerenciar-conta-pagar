@@ -23,7 +23,7 @@ public interface LembreteRepository extends JpaRepository<Lembrete, Long> {
             "WHERE l.situacao = :situacao " +
             "AND (:search is null or LOWER(l.observacao) LIKE %:search%) " +
             "ORDER BY l.dataCompra DESC ")
-    Page<Lembrete> findBySituacao(String search, DominioSituacaoRegistro situacao, Pageable pageable);
+    Page<Lembrete> search(String search, DominioSituacaoRegistro situacao, Pageable pageable);
 
     @Query("SELECT COUNT(l) AS quantidade, SUM(l.valor) AS valor " +
             "FROM Lembrete l " +

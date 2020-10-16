@@ -41,7 +41,7 @@ class GerenciarContaPagarApplicationTests {
 
     @Test
     void consolidarGasto() {
-        final String periodo = "2020-08";
+        final String periodo = "2020-09";
         try {
             gastoService.consolidarGasto(periodo);
         } catch (Exception e) {

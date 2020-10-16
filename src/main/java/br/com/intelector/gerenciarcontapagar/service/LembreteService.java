@@ -60,7 +60,7 @@ public class LembreteService {
 
     public Page<LembreteResponse> list(String search, Integer page, Integer size) {
         search = search.equals("TODOS") ? null : search.toLowerCase();
-        return repository.findBySituacao(search, DominioSituacaoRegistro.ATIVO, PageRequest.of(page, size))
+        return repository.search(search, DominioSituacaoRegistro.ATIVO, PageRequest.of(page, size))
                 .map(lembrete ->  modelMapperUtils.map(lembrete, LembreteResponse.class));
     }
 

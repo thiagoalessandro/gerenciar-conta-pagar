@@ -1,5 +1,7 @@
 package br.com.intelector.gerenciarcontapagar.service;
 
+import br.com.intelector.gerenciarcontapagar.controller.dto.response.LancamentoResponse;
+import br.com.intelector.gerenciarcontapagar.controller.dto.response.LembreteResponse;
 import br.com.intelector.gerenciarcontapagar.domain.*;
 import br.com.intelector.gerenciarcontapagar.dto.LancamentoDTO;
 import br.com.intelector.gerenciarcontapagar.exception.ArquivoException;
@@ -9,9 +11,12 @@ import br.com.intelector.gerenciarcontapagar.model.Lembrete;
 import br.com.intelector.gerenciarcontapagar.repository.LancamentoRepository;
 import br.com.intelector.gerenciarcontapagar.repository.dto.LancamentoConsolidadoDTO;
 import br.com.intelector.gerenciarcontapagar.utils.LancamentoUtils;
+import br.com.intelector.gerenciarcontapagar.utils.ModelMapperUtils;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +39,10 @@ public class LancamentoService extends AbstractService{
 
     @Autowired
     private LembreteService lembreteService;
+
+    @Autowired
+    private ModelMapperUtils modelMapperUtils;
+
 
     public void processarLancamentosPagos(List<LancamentoDTO> lancamentosAtuais, DominioCartao cartao) {
         log.info("Processando lançamentos pagos...");
@@ -209,4 +218,9 @@ public class LancamentoService extends AbstractService{
         return repository.findAll();
     }
 
+    public Page<LancamentoResponse> search(String search, Integer page, Integer size) {
+        search = search.equals("TODOS") ? null : search.toLowerCase();
+        return repository.search(search, DominioSituacaoRegistro.ATIVO, PageRequest.of(page, size))
+                .map(lancamento ->  modelMapperUtils.map(lancamento, LancamentoResponse.class));
+    }
 }
